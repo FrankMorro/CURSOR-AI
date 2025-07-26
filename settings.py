@@ -19,7 +19,7 @@ class Settings(BaseSettings):
     db_port: int = 5432
     db_name: str = "fastapi_simple"
     db_user: str = "postgres"
-    db_password: str = "password"
+    db_password: str = ""  # Debe venir del archivo .env
     db_url: Optional[str] = None
 
     # Configuración de CORS
@@ -34,10 +34,14 @@ class Settings(BaseSettings):
 
     class Config:
         env_file = ".env"
+        env_file_encoding = "utf-8"
 
     def get_db_url(self):
         if self.db_url:
             return self.db_url
-        return f"postgresql://{self.db_user}:{self.db_password}@{self.db_host}:{self.db_port}/{self.db_name}"
+        # Usar quote_plus para manejar caracteres especiales en la contraseña
+        from urllib.parse import quote_plus
+        password = quote_plus(self.db_password)
+        return f"postgresql://{self.db_user}:{password}@{self.db_host}:{self.db_port}/{self.db_name}"
 
 settings = Settings() 
