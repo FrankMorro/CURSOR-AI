@@ -5,8 +5,8 @@ from .models import Plato
 from .schemas import PlatoCreate
 
 
-def get_platos(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(Plato).offset(skip).limit(limit).all()
+def get_platos(db: Session, skip: int = 0, limit: int = 5):
+    return db.query(Plato).order_by(Plato.id).offset(skip).limit(limit).all()
 
 def get_plato(db: Session, plato_id: int):
     return db.query(Plato).filter(Plato.id == plato_id).first()
@@ -34,6 +34,6 @@ def delete_plato(db: Session, plato_id: int):
         db.commit()
     return db_plato
 
-def delete_all_platos(db: Session):
-    db.query(Plato).delete()
-    db.commit() 
+# def delete_all_platos(db: Session):
+#     db.query(Plato).delete()
+#     db.commit() 

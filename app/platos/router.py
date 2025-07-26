@@ -1,6 +1,6 @@
 from typing import List
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
 
 from database import get_db
@@ -10,10 +10,25 @@ from .schemas import Plato, PlatoCreate
 
 router = APIRouter(prefix="/platos", tags=["Platos"])
 
-@router.get("/", response_model=List[Plato], summary="Listar todos los platos")
-def listar_platos(db: Session = Depends(get_db)):
-    """Devuelve la lista de todos los platos disponibles."""
-    return crud.get_platos(db)
+@router.get("/", summary="Listar todos los platos")
+def listar_platos(
+    skip: int = Query(0, ge=0, description="Registros a omitir (offset)"),
+    limit: int = Query(5, ge=1, le=100, description="Cantidad de registros por página"),
+    db: Session = Depends(get_db)):
+    """Devuelve la lista de todos los platos disponibles con paginación avanzada."""
+    total = db.query(crud.Plato).count()
+    items = crud.get_platos(db, skip=skip, limit=limit)
+    page = (skip // limit) + 1 if limit else 1
+    total_pages = (total + limit - 1) // limit if limit else 1
+    return {
+        "total": total,
+        "page": page,
+        "per_page": limit,
+        "total_pages": total_pages,
+        "has_next": skip + limit < total,
+        "has_prev": skip > 0,
+        "items": items
+    }
 
 @router.get("/{plato_id}", response_model=Plato, summary="Obtener un plato por ID")
 def obtener_plato(plato_id: int, db: Session = Depends(get_db)):
@@ -50,8 +65,8 @@ def eliminar_plato(plato_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Plato no encontrado")
     return
 
-@router.delete("/", status_code=status.HTTP_204_NO_CONTENT, summary="Eliminar todos los platos")
-def limpiar_platos(db: Session = Depends(get_db)):
-    """Elimina todos los platos de la base de datos."""
-    crud.delete_all_platos(db=db)
-    return 
+# @router.delete("/", status_code=status.HTTP_204_NO_CONTENT, summary="Eliminar todos los platos")
+# def limpiar_platos(db: Session = Depends(get_db)):
+#     """Elimina todos los platos de la base de datos."""
+#     crud.delete_all_platos(db=db)
+#     return
