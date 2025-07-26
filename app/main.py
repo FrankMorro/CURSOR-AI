@@ -12,6 +12,7 @@ from settings import settings
 
 
 def create_tables():
+    # Solo crea las tablas si no existen, no borra datos existentes
     Base.metadata.create_all(bind=engine)
 
 @asynccontextmanager
@@ -37,4 +38,4 @@ app.include_router(pedidos_router, prefix="/api/v1")
 @app.get("/", summary="Mensaje de bienvenida")
 def read_root():
     """Mensaje de bienvenida para la API."""
-    return {"message": "¡Hola, FastAPI!"} 
+    return {"message": "¡Hola, FastAPI!"}
