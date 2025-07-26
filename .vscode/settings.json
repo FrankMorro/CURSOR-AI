@@ -2,14 +2,18 @@
     "cSpell.words": [
         "Arepa",
         "Cachapa",
+        "dotenv",
         "fastapi",
         "Hallaca",
         "mantenibilidad",
         "paginación",
         "postgres",
         "postgresql",
+        "psycopg",
+        "pydantic",
         "Pydantic",
         "Serializar",
+        "sqlalchemy",
         "Tequeños"
     ]
 }

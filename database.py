@@ -25,4 +25,9 @@ def get_db():
     try:
         yield db
     finally:
-        db.close() 
+        db.close()
+
+# Crear las tablas en la base de datos (incluyendo todos los modelos importados)
+import models  # Asegura que todos los modelos estén registrados
+
+models.Base.metadata.create_all(bind=engine)

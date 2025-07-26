@@ -3,23 +3,28 @@
 ## 📋 Pasos para Iniciar la API
 
 ### 1. **Verificar que todo esté correcto**
+
 ```bash
 python test_new_structure.py
 ```
+
 Deberías ver mensajes de éxito (✅) para todas las importaciones.
 
 ### 2. **Ejecutar la API**
+
 ```bash
 uvicorn app.main:app --reload
 ```
 
 ### 3. **Acceder a la documentación**
-- **Documentación interactiva:** http://127.0.0.1:8000/docs
-- **Documentación alternativa:** http://127.0.0.1:8000/redoc
+
+- **Documentación interactiva:** <http://127.0.0.1:8000/docs>
+- **Documentación alternativa:** <http://127.0.0.1:8000/redoc>
 
 ## 📡 Endpoints Disponibles
 
 ### **Platos (Completamente implementado)**
+
 - `GET /api/v1/platos/` - Listar todos los platos
 - `GET /api/v1/platos/{id}` - Obtener plato por ID
 - `POST /api/v1/platos/` - Crear nuevo plato
@@ -28,14 +33,17 @@ uvicorn app.main:app --reload
 - `DELETE /api/v1/platos/` - Eliminar todos los platos
 
 ### **Clientes (Básico - para implementar)**
+
 - `GET /api/v1/clientes/` - Listar clientes
 
 ### **Pedidos (Básico - para implementar)**
+
 - `GET /api/v1/pedidos/` - Listar pedidos
 
 ## 🔧 Si hay problemas
 
 ### **Error: "No module named 'app'"**
+
 ```bash
 # Asegúrate de estar en el directorio raíz del proyecto
 pwd
@@ -43,6 +51,7 @@ ls app/
 ```
 
 ### **Error de importación**
+
 ```bash
 # Verifica que todos los archivos existan
 ls app/platos/
@@ -51,6 +60,7 @@ ls app/pedidos/
 ```
 
 ### **Error de base de datos**
+
 ```bash
 # Verifica que PostgreSQL esté corriendo
 psql -U postgres -d fastapi_simple -c "SELECT 1;"
@@ -58,7 +68,7 @@ psql -U postgres -d fastapi_simple -c "SELECT 1;"
 
 ## 📁 Estructura Final del Proyecto
 
-```
+``` txt
 proyecto/
 │
 ├── 📁 app/                          # Paquete principal
@@ -98,4 +108,4 @@ proyecto/
 4. **Agregar relaciones** entre modelos
 5. **Implementar autenticación**
 
-¡La nueva estructura está lista para usar! 🎉 
+¡La nueva estructura está lista para usar! 🎉
