@@ -4,8 +4,12 @@
         "Cachapa",
         "fastapi",
         "Hallaca",
+        "mantenibilidad",
+        "paginación",
         "postgres",
         "postgresql",
+        "Pydantic",
+        "Serializar",
         "Tequeños"
     ]
 }
